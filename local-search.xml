@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>自制扫描隧道显微镜【一】</title>
+    <link href="/2025/03/12/%E8%87%AA%E5%88%B6%E6%89%AB%E6%8F%8F%E9%9A%A7%E9%81%93%E6%98%BE%E5%BE%AE%E9%95%9C%E3%80%90%E4%B8%80%E3%80%91/"/>
+    <url>/2025/03/12/%E8%87%AA%E5%88%B6%E6%89%AB%E6%8F%8F%E9%9A%A7%E9%81%93%E6%98%BE%E5%BE%AE%E9%95%9C%E3%80%90%E4%B8%80%E3%80%91/</url>
+    
+    <content type="html"><![CDATA[<h1 id="自制一个扫描隧道显微镜【一】"><a href="#自制一个扫描隧道显微镜【一】" class="headerlink" title="自制一个扫描隧道显微镜【一】"></a>自制一个扫描隧道显微镜【一】</h1><p>在B站上看到的超牛UP，采用3D打印技术制作了一个扫描隧道显微镜，并测到了石墨的原子结构。项目已经开源了，看完后按耐不住躁动的心，准备复刻一个，目前完成度50%，由于条件限制，有些工作开展的比较费劲，希望能够完成吧。</p><p>UP@机械小熊猫 扫描得到的石墨原子结构（实际应该是电子云密度）：</p><p><img src="https://pic4.zhimg.com/v2-a79e025948b7cb45b228328ea98e489d_1440w.jpg" alt="石墨原子结构"></p><p>下面是我目前的进度。</p><p>主要解决三大块内容：要完成纳米级精度扫描要求的扫描台、处理pA级电流的前置放大电路与控制电路、固件程序与软件开发。</p><h2 id="3D打印的主体和减震平台"><a href="#3D打印的主体和减震平台" class="headerlink" title="3D打印的主体和减震平台"></a>3D打印的主体和减震平台</h2><p><img src="https://pic4.zhimg.com/v2-f123343a9d69088a7410116e1473f1a7_1440w.jpg" alt="整体模型"></p><p><img src="https://picx.zhimg.com/v2-f98d74e6317db3ddd64cd7b1287a217f_1440w.jpg" alt="3D打印零件"></p><p><img src="https://pic3.zhimg.com/v2-8787df67414e4ffb8c1957d2db28b580_1440w.jpg" alt="组装零件、安装紧固件、贴铝胶带、固定电机"></p><p><img src="https://picx.zhimg.com/v2-c8073282d7b76febe85058a8c981a5eb_1440w.jpg" alt="扫描台主体"></p><p><img src="https://pic4.zhimg.com/v2-0f366ff2f803b7910abcfca7fc6062bb_1440w.jpg" alt="减震平台"></p><p>斥巨资买了四个索雷博的精细调节螺丝，与步进电机结合可以达到微米级精度的控制。</p><p><img src="https://pic4.zhimg.com/v2-e42a76df64ff68fdc2ae050592b34281_1440w.jpg" alt="精细调节螺丝"></p><p>买的FAS100 搭配四个铜套：</p><p><img src="https://picx.zhimg.com/v2-639d074e9a72af4b6d0b0544e6083b85_1440w.jpg" alt="FAS100"></p><p><img src="https://pic2.zhimg.com/v2-b7b45a6b2c92a0488b72fb4383a2193d_1440w.jpg" alt="铜套"></p><h2 id="手工焊接扫描头"><a href="#手工焊接扫描头" class="headerlink" title="手工焊接扫描头"></a>手工焊接扫描头</h2><p>采用压电陶瓷片提供纳米级精度的控制：</p><p><img src="https://pica.zhimg.com/v2-5eb476adb842b24abbb2b29901a89a4c_1440w.jpg" alt="压电陶瓷片"></p><p>压电陶瓷拆分成四部分，可以进行面扫描：</p><p><img src="https://pic1.zhimg.com/v2-4e1201f6f0ad129892daaa56a7c51dec_1440w.jpg" alt="压电陶瓷拆分"></p><p>扫描头由拆开的DIP引脚焊接而成。</p><h2 id="定做前置放大器和控制电路"><a href="#定做前置放大器和控制电路" class="headerlink" title="定做前置放大器和控制电路"></a>定做前置放大器和控制电路</h2><p>（开源文件里没有物料表，所以我将PCB中的所有元器件进行了重新标记，参考了另一位大神的开源资料扫描隧道显微镜OpenSTM - 立创开源硬件平台。前置放大器参考了Dan Berard提供的开源板，详情参考<a href="https://dberard.com/home-built-stm/">Dan Berard的网站</a>。）</p><p><img src="https://pic3.zhimg.com/v2-44d8b927193d3608bd653256405f99bc_1440w.jpg" alt="控制电路DAC部分"></p><p><img src="https://picx.zhimg.com/v2-50697aca3648f848fed9c9c0e379bbc7_1440w.jpg" alt="控制电路PCB"></p><p><img src="https://pica.zhimg.com/v2-ceb3939056d31caa6f167cd15a17dc74_1440w.jpg" alt="前置放大器"></p><p>小的是前置放大器、大的是控制电路：</p><p><img src="https://pic1.zhimg.com/v2-d673903e2439c10bc20adef23ab1168e_1440w.jpg" alt="前置放大器和控制电路"></p><h2 id="固件与软件"><a href="#固件与软件" class="headerlink" title="固件与软件"></a>固件与软件</h2><p>（这部分全部用的开源代码，看了很久，大概了解怎么跑起来的了。）</p><p><img src="https://pic4.zhimg.com/v2-90c9079ce6b36c903132ae928b4c416d_1440w.jpg" alt="teensy4.1单片机搭配Adurino IDE"></p><p><img src="https://pic3.zhimg.com/v2-a544a96b29abc8402d486663af34774a_1440w.jpg" alt="控制界面采用python+tkinter"></p><p>接下来要连接各部分的线路，有后续再更新。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>单片机</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【教程】本地部署DeepSeek指南</title>
     <link href="/2025/02/12/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2DeepSeek%E6%8C%87%E5%8D%97/"/>
     <url>/2025/02/12/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2DeepSeek%E6%8C%87%E5%8D%97/</url>

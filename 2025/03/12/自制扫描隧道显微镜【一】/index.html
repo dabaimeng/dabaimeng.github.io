@@ -19,26 +19,26 @@
   <meta name="author" content="DABAI MENG">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本地部署DeepSeek指南简介DeepSeek是一款强大的自然语言处理工具，广泛应用于信息检索、文本分析等领域。本文将详细介绍如何在本地环境中部署DeepSeek，以便开发者能够更高效地利用这一工具。 环境要求在开始部署之前，请确保系统满足以下环境要求：  操作系统：Linux或Windows CPU：至少4核 内存：至少8GB 硬盘：至少100GB可用空间 Python：3.6及以上版本 其他">
+    <meta name="description" content="自制一个扫描隧道显微镜【一】在B站上看到的超牛UP，采用3D打印技术制作了一个扫描隧道显微镜，并测到了石墨的原子结构。项目已经开源了，看完后按耐不住躁动的心，准备复刻一个，目前完成度50%，由于条件限制，有些工作开展的比较费劲，希望能够完成吧。 UP@机械小熊猫 扫描得到的石墨原子结构（实际应该是电子云密度）：  下面是我目前的进度。 主要解决三大块内容：要完成纳米级精度扫描要求的扫描台、处理pA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【教程】本地部署DeepSeek指南">
-<meta property="og:url" content="http://example.com/2025/02/12/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2DeepSeek%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:title" content="自制扫描隧道显微镜【一】">
+<meta property="og:url" content="http://example.com/2025/03/12/%E8%87%AA%E5%88%B6%E6%89%AB%E6%8F%8F%E9%9A%A7%E9%81%93%E6%98%BE%E5%BE%AE%E9%95%9C%E3%80%90%E4%B8%80%E3%80%91/index.html">
 <meta property="og:site_name" content="DABAI MENG">
-<meta property="og:description" content="本地部署DeepSeek指南简介DeepSeek是一款强大的自然语言处理工具，广泛应用于信息检索、文本分析等领域。本文将详细介绍如何在本地环境中部署DeepSeek，以便开发者能够更高效地利用这一工具。 环境要求在开始部署之前，请确保系统满足以下环境要求：  操作系统：Linux或Windows CPU：至少4核 内存：至少8GB 硬盘：至少100GB可用空间 Python：3.6及以上版本 其他">
+<meta property="og:description" content="自制一个扫描隧道显微镜【一】在B站上看到的超牛UP，采用3D打印技术制作了一个扫描隧道显微镜，并测到了石墨的原子结构。项目已经开源了，看完后按耐不住躁动的心，准备复刻一个，目前完成度50%，由于条件限制，有些工作开展的比较费劲，希望能够完成吧。 UP@机械小熊猫 扫描得到的石墨原子结构（实际应该是电子云密度）：  下面是我目前的进度。 主要解决三大块内容：要完成纳米级精度扫描要求的扫描台、处理pA">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/122825.png">
-<meta property="article:published_time" content="2025-02-12T03:57:58.000Z">
-<meta property="article:modified_time" content="2025-02-12T04:29:20.437Z">
+<meta property="og:image" content="http://example.com/img/250312.png">
+<meta property="article:published_time" content="2025-03-12T00:13:39.000Z">
+<meta property="article:modified_time" content="2025-03-12T00:22:26.030Z">
 <meta property="article:author" content="DABAI MENG">
-<meta property="article:tag" content="Deepseek">
+<meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/122825.png">
+<meta name="twitter:image" content="http://example.com/img/250312.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【教程】本地部署DeepSeek指南 - DABAI MENG</title>
+  <title>自制扫描隧道显微镜【一】 - DABAI MENG</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">【教程】本地部署DeepSeek指南</span>
+            <span id="subtitle">自制扫描隧道显微镜【一】</span>
           
         </div>
 
@@ -227,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-12 11:57" pubdate>
-          2025年2月12日 中午
+        <time datetime="2025-03-12 08:13" pubdate>
+          2025年3月12日 早上
         </time>
       </span>
     
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          532 字
+          461 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -287,51 +287,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【教程】本地部署DeepSeek指南</h1>
+            <h1 id="seo-header">自制扫描隧道显微镜【一】</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="本地部署DeepSeek指南"><a href="#本地部署DeepSeek指南" class="headerlink" title="本地部署DeepSeek指南"></a>本地部署DeepSeek指南</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>DeepSeek是一款强大的自然语言处理工具，广泛应用于信息检索、文本分析等领域。本文将详细介绍如何在本地环境中部署DeepSeek，以便开发者能够更高效地利用这一工具。</p>
-<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><p>在开始部署之前，请确保系统满足以下环境要求：</p>
-<ul>
-<li>操作系统：Linux或Windows</li>
-<li>CPU：至少4核</li>
-<li>内存：至少8GB</li>
-<li>硬盘：至少100GB可用空间</li>
-<li>Python：3.6及以上版本</li>
-<li>其他依赖：Git、CMake、GCC</li>
-</ul>
-<h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="1-克隆DeepSeek仓库"><a href="#1-克隆DeepSeek仓库" class="headerlink" title="1. 克隆DeepSeek仓库"></a>1. 克隆DeepSeek仓库</h3><p>首先，需要从GitHub上克隆DeepSeek的源代码仓库。打开终端或命令提示符，执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/deepseek/deepseek.git<br><span class="hljs-built_in">cd</span> deepseek<br></code></pre></td></tr></table></figure>
-
-<h3 id="2-安装依赖"><a href="#2-安装依赖" class="headerlink" title="2. 安装依赖"></a>2. 安装依赖</h3><p>DeepSeek依赖于多个Python库和系统工具。可以使用以下命令安装所需的Python库：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
-
-<p>对于系统工具，请根据操作系统进行安装。例如，在Ubuntu上可以执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/deepseek/deepseek.git<br><span class="hljs-built_in">cd</span> deepseek<br></code></pre></td></tr></table></figure>
-
-<h3 id="3-编译源代码"><a href="#3-编译源代码" class="headerlink" title="3. 编译源代码"></a>3. 编译源代码</h3><p>DeepSeek的部分组件需要编译。进入src目录，执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br>make<br></code></pre></td></tr></table></figure>
-<p>编译过程可能需要一些时间，请耐心等待。</p>
-<h3 id="4-配置环境变量"><a href="#4-配置环境变量" class="headerlink" title="4. 配置环境变量"></a>4. 配置环境变量</h3><p>为了方便使用DeepSeek，建议将其添加到环境变量中。编辑<del>&#x2F;.bashrc或</del>&#x2F;.zshrc文件，添加以下行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> DEEPSEEK_PATH=/path/to/deepseek<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$DEEPSEEK_PATH</span>/bin:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
-
-<p>保存并关闭文件，然后执行source ~&#x2F;.bashrc或source ~&#x2F;.zshrc使更改生效。</p>
-<h3 id="5-初始化数据库"><a href="#5-初始化数据库" class="headerlink" title="5. 初始化数据库"></a>5. 初始化数据库</h3><p>DeepSeek使用数据库存储索引和数据。需要初始化数据库。执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">deepseek_init_db<br></code></pre></td></tr></table></figure>
-
-<h3 id="6-导入数据"><a href="#6-导入数据" class="headerlink" title="6. 导入数据"></a>6. 导入数据</h3><p>如果已有数据需要导入DeepSeek，可以使用deepseek_import命令。例如，导入一个CSV文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">deepseek_import data.csv<br></code></pre></td></tr></table></figure>
-
-<h3 id="7-启动DeepSeek服务"><a href="#7-启动DeepSeek服务" class="headerlink" title="7. 启动DeepSeek服务"></a>7. 启动DeepSeek服务</h3><p>一切准备就绪后，可以启动DeepSeek服务：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">deepseek_start<br></code></pre></td></tr></table></figure>
-
-<p>服务启动后，DeepSeek将开始监听指定端口，等待客户端请求。</p>
-<h2 id="测试DeepSeek"><a href="#测试DeepSeek" class="headerlink" title="测试DeepSeek"></a>测试DeepSeek</h2><p>为了确保DeepSeek正确部署，可以进行简单的测试。使用以下命令发送查询请求：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">deepseek_query <span class="hljs-string">&quot;您的查询内容&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>如果一切正常，将看到与查询内容相关的结果。</p>
+                <h1 id="自制一个扫描隧道显微镜【一】"><a href="#自制一个扫描隧道显微镜【一】" class="headerlink" title="自制一个扫描隧道显微镜【一】"></a>自制一个扫描隧道显微镜【一】</h1><p>在B站上看到的超牛UP，采用3D打印技术制作了一个扫描隧道显微镜，并测到了石墨的原子结构。项目已经开源了，看完后按耐不住躁动的心，准备复刻一个，目前完成度50%，由于条件限制，有些工作开展的比较费劲，希望能够完成吧。</p>
+<p>UP@机械小熊猫 扫描得到的石墨原子结构（实际应该是电子云密度）：</p>
+<p><img src="https://pic4.zhimg.com/v2-a79e025948b7cb45b228328ea98e489d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="石墨原子结构"></p>
+<p>下面是我目前的进度。</p>
+<p>主要解决三大块内容：要完成纳米级精度扫描要求的扫描台、处理pA级电流的前置放大电路与控制电路、固件程序与软件开发。</p>
+<h2 id="3D打印的主体和减震平台"><a href="#3D打印的主体和减震平台" class="headerlink" title="3D打印的主体和减震平台"></a>3D打印的主体和减震平台</h2><p><img src="https://pic4.zhimg.com/v2-f123343a9d69088a7410116e1473f1a7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="整体模型"></p>
+<p><img src="https://picx.zhimg.com/v2-f98d74e6317db3ddd64cd7b1287a217f_1440w.jpg" srcset="/img/loading.gif" lazyload alt="3D打印零件"></p>
+<p><img src="https://pic3.zhimg.com/v2-8787df67414e4ffb8c1957d2db28b580_1440w.jpg" srcset="/img/loading.gif" lazyload alt="组装零件、安装紧固件、贴铝胶带、固定电机"></p>
+<p><img src="https://picx.zhimg.com/v2-c8073282d7b76febe85058a8c981a5eb_1440w.jpg" srcset="/img/loading.gif" lazyload alt="扫描台主体"></p>
+<p><img src="https://pic4.zhimg.com/v2-0f366ff2f803b7910abcfca7fc6062bb_1440w.jpg" srcset="/img/loading.gif" lazyload alt="减震平台"></p>
+<p>斥巨资买了四个索雷博的精细调节螺丝，与步进电机结合可以达到微米级精度的控制。</p>
+<p><img src="https://pic4.zhimg.com/v2-e42a76df64ff68fdc2ae050592b34281_1440w.jpg" srcset="/img/loading.gif" lazyload alt="精细调节螺丝"></p>
+<p>买的FAS100 搭配四个铜套：</p>
+<p><img src="https://picx.zhimg.com/v2-639d074e9a72af4b6d0b0544e6083b85_1440w.jpg" srcset="/img/loading.gif" lazyload alt="FAS100"></p>
+<p><img src="https://pic2.zhimg.com/v2-b7b45a6b2c92a0488b72fb4383a2193d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="铜套"></p>
+<h2 id="手工焊接扫描头"><a href="#手工焊接扫描头" class="headerlink" title="手工焊接扫描头"></a>手工焊接扫描头</h2><p>采用压电陶瓷片提供纳米级精度的控制：</p>
+<p><img src="https://pica.zhimg.com/v2-5eb476adb842b24abbb2b29901a89a4c_1440w.jpg" srcset="/img/loading.gif" lazyload alt="压电陶瓷片"></p>
+<p>压电陶瓷拆分成四部分，可以进行面扫描：</p>
+<p><img src="https://pic1.zhimg.com/v2-4e1201f6f0ad129892daaa56a7c51dec_1440w.jpg" srcset="/img/loading.gif" lazyload alt="压电陶瓷拆分"></p>
+<p>扫描头由拆开的DIP引脚焊接而成。</p>
+<h2 id="定做前置放大器和控制电路"><a href="#定做前置放大器和控制电路" class="headerlink" title="定做前置放大器和控制电路"></a>定做前置放大器和控制电路</h2><p>（开源文件里没有物料表，所以我将PCB中的所有元器件进行了重新标记，参考了另一位大神的开源资料扫描隧道显微镜OpenSTM - 立创开源硬件平台。前置放大器参考了Dan Berard提供的开源板，详情参考<a target="_blank" rel="noopener" href="https://dberard.com/home-built-stm/">Dan Berard的网站</a>。）</p>
+<p><img src="https://pic3.zhimg.com/v2-44d8b927193d3608bd653256405f99bc_1440w.jpg" srcset="/img/loading.gif" lazyload alt="控制电路DAC部分"></p>
+<p><img src="https://picx.zhimg.com/v2-50697aca3648f848fed9c9c0e379bbc7_1440w.jpg" srcset="/img/loading.gif" lazyload alt="控制电路PCB"></p>
+<p><img src="https://pica.zhimg.com/v2-ceb3939056d31caa6f167cd15a17dc74_1440w.jpg" srcset="/img/loading.gif" lazyload alt="前置放大器"></p>
+<p>小的是前置放大器、大的是控制电路：</p>
+<p><img src="https://pic1.zhimg.com/v2-d673903e2439c10bc20adef23ab1168e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="前置放大器和控制电路"></p>
+<h2 id="固件与软件"><a href="#固件与软件" class="headerlink" title="固件与软件"></a>固件与软件</h2><p>（这部分全部用的开源代码，看了很久，大概了解怎么跑起来的了。）</p>
+<p><img src="https://pic4.zhimg.com/v2-90c9079ce6b36c903132ae928b4c416d_1440w.jpg" srcset="/img/loading.gif" lazyload alt="teensy4.1单片机搭配Adurino IDE"></p>
+<p><img src="https://pic3.zhimg.com/v2-a544a96b29abc8402d486663af34774a_1440w.jpg" srcset="/img/loading.gif" lazyload alt="控制界面采用python+tkinter"></p>
+<p>接下来要连接各部分的线路，有后续再更新。</p>
 
                 
               </div>
@@ -344,7 +334,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Deepseek/" class="print-no-link">#Deepseek</a>
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#单片机</a>
       
     </div>
   
@@ -356,8 +346,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【教程】本地部署DeepSeek指南</div>
-      <div>http://example.com/2025/02/12/本地部署DeepSeek指南/</div>
+      <div>自制扫描隧道显微镜【一】</div>
+      <div>http://example.com/2025/03/12/自制扫描隧道显微镜【一】/</div>
     </div>
     <div class="license-meta">
       
@@ -369,7 +359,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年2月12日</div>
+          <div>2025年3月12日</div>
         </div>
       
       
@@ -401,18 +391,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/12/%E8%87%AA%E5%88%B6%E6%89%AB%E6%8F%8F%E9%9A%A7%E9%81%93%E6%98%BE%E5%BE%AE%E9%95%9C%E3%80%90%E4%B8%80%E3%80%91/" title="自制扫描隧道显微镜【一】">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">自制扫描隧道显微镜【一】</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/08/hello-world/" title="Hello！ Welcome to DABAI MENG&#39;s blog">
-                        <span class="hidden-mobile">Hello！ Welcome to DABAI MENG&#39;s blog</span>
+                      <a href="/2025/02/12/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2DeepSeek%E6%8C%87%E5%8D%97/" title="【教程】本地部署DeepSeek指南">
+                        <span class="hidden-mobile">【教程】本地部署DeepSeek指南</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
