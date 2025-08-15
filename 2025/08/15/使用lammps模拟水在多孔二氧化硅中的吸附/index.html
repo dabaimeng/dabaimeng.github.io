@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favr.ico">
+  <link rel="icon" href="/img/favr.ico">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="DABAI MENG">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="水在二氧化硅中的吸附**简介本教程的目的是模拟水在多孔二氧化硅中的吸附。首先构建一个包含多孔二氧化硅和水的体系，然后使用 LAMMPS 进行分子动力学模拟。最后，分析模拟结果，以了解水分子在二氧化硅孔隙中的行为。 1. 准备结构文件在开始模拟之前，需要准备两个结构文件：一个用于多孔二氧化硅，另一个用于水。 1.1. 多孔二氧化硅结构首先，需要创建一个多孔二氧化硅结构。有多种方法可以做到这一点，这里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【分子模拟】使用lammps模拟水在多孔二氧化硅中的吸附">
+<meta property="og:url" content="http://example.com/2025/08/15/%E4%BD%BF%E7%94%A8lammps%E6%A8%A1%E6%8B%9F%E6%B0%B4%E5%9C%A8%E5%A4%9A%E5%AD%94%E4%BA%8C%E6%B0%A7%E5%8C%96%E7%A1%85%E4%B8%AD%E7%9A%84%E5%90%B8%E9%99%84/index.html">
+<meta property="og:site_name" content="DABAI MENG">
+<meta property="og:description" content="水在二氧化硅中的吸附**简介本教程的目的是模拟水在多孔二氧化硅中的吸附。首先构建一个包含多孔二氧化硅和水的体系，然后使用 LAMMPS 进行分子动力学模拟。最后，分析模拟结果，以了解水分子在二氧化硅孔隙中的行为。 1. 准备结构文件在开始模拟之前，需要准备两个结构文件：一个用于多孔二氧化硅，另一个用于水。 1.1. 多孔二氧化硅结构首先，需要创建一个多孔二氧化硅结构。有多种方法可以做到这一点，这里">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/250815.png">
+<meta property="article:published_time" content="2025-08-15T01:13:39.000Z">
+<meta property="article:modified_time" content="2025-08-15T01:27:51.541Z">
+<meta property="article:author" content="DABAI MENG">
+<meta property="article:tag" content="lammps模拟">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/250815.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【分子模拟】使用lammps模拟水在多孔二氧化硅中的吸附 - DABAI MENG</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DABAI MENG</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                
+                <span>链接</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s21.ax1x.com/2025/02/08/pEmU2eU.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">【分子模拟】使用lammps模拟水在多孔二氧化硅中的吸附</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-15 09:13" pubdate>
+          2025年8月15日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【分子模拟】使用lammps模拟水在多孔二氧化硅中的吸附</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="水在二氧化硅中的吸附"><a href="#水在二氧化硅中的吸附" class="headerlink" title="水在二氧化硅中的吸附**"></a>水在二氧化硅中的吸附**</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h4><p>本教程的目的是模拟水在多孔二氧化硅中的吸附。首先构建一个包含多孔二氧化硅和水的体系，然后使用 LAMMPS 进行分子动力学模拟。最后，分析模拟结果，以了解水分子在二氧化硅孔隙中的行为。</p>
+<h4 id="1-准备结构文件"><a href="#1-准备结构文件" class="headerlink" title="1. 准备结构文件"></a><strong>1. 准备结构文件</strong></h4><p>在开始模拟之前，需要准备两个结构文件：一个用于多孔二氧化硅，另一个用于水。</p>
+<h5 id="1-1-多孔二氧化硅结构"><a href="#1-1-多孔二氧化硅结构" class="headerlink" title="1.1. 多孔二氧化硅结构"></a><strong>1.1. 多孔二氧化硅结构</strong></h5><p>首先，需要创建一个多孔二氧化硅结构。有多种方法可以做到这一点，这里使用 VMD 及其内置的无机物构建器。</p>
+<ol>
+<li>打开 VMD。</li>
+<li>转到 <code>Extensions</code> -&gt; <code>Modeling</code> -&gt; <code>Inorganic Builder</code>。</li>
+<li>在 <code>Material</code> 下拉菜单中选择 <code>Cristobalite</code> (方石英)。</li>
+<li>设置晶胞参数，例如 <code>a=5.0</code>, <code>b=5.0</code>, <code>c=5.0</code>。</li>
+<li>点击 <code>Create Unit Cell</code> (创建晶胞)。</li>
+<li>现在，为了创建一个孔隙，可以删除一些原子。选择一些原子并删除它们。也可以使用 VMD 的 <code>Tk Console</code> (Tk 控制台) 来更精确地完成此操作。例如，要删除一个球体内的所有原子，可以使用以下命令：<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">set</span> sel [atomselect top <span class="hljs-string">&quot;within 2.0 (x y z)&quot;</span>]<br><span class="hljs-variable">$sel</span> delete<br></code></pre></td></tr></table></figure>
+这将删除以坐标 (x, y, z) 为中心、半径为 2.0 Å 的球体内的所有原子。</li>
+<li>对结构满意后，将其保存为 <code>data.sio2</code> 文件。转到 <code>File</code> -&gt; <code>Save Data...</code>，然后选择 <code>LAMMPS Data</code> 格式。<br><strong>注意</strong>: 也可以使用其他软件（如 Avogadro 或 Materials Studio）来创建多孔二氧化硅结构。确保最终导出为 LAMMPS 可以读取的格式，例如 <code>.data</code> 文件。</li>
+</ol>
+<h5 id="1-2-水盒子"><a href="#1-2-水盒子" class="headerlink" title="1.2. 水盒子"></a><strong>1.2. 水盒子</strong></h5><p>接下来，需要创建一个水盒子。这里将使用 Packmol 软件来构建它。</p>
+<ol>
+<li>创建一个名为 <code>water.inp</code> 的输入文件，内容如下：<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tolerance</span> <span class="hljs-number">2</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">filetype</span> xyz<br><span class="hljs-attribute">output</span> water.xyz<br><span class="hljs-attribute">structure</span> spc216.pdb<br>  <span class="hljs-attribute">number</span> <span class="hljs-number">1000</span><br>  <span class="hljs-attribute">inside</span> box <span class="hljs-number">0</span>. <span class="hljs-number">0</span>. <span class="hljs-number">0</span>. <span class="hljs-number">40</span>. <span class="hljs-number">40</span>. <span class="hljs-number">40</span>.<br><span class="hljs-attribute">end</span> structure<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>tolerance 2.0</code>: 设置分子间的最小距离。</li>
+<li><code>filetype xyz</code>: 指定输出文件格式。</li>
+<li><code>output water.xyz</code>: 指定输出文件名。</li>
+<li><code>structure spc216.pdb</code>: 指定水分子模板文件（一个包含单个 SPC&#x2F;E 水分子的 PDB 文件）。</li>
+<li><code>number 1000</code>: 指定要放置的水分子数量。</li>
+<li><code>inside box ...</code>: 指定放置水分子的盒子尺寸。</li>
+</ul>
+</li>
+<li>运行 Packmol：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">packmol &lt; water.inp<br></code></pre></td></tr></table></figure>
+这将生成一个名为 <code>water.xyz</code> 的文件。</li>
+<li>现在，需要将 <code>water.xyz</code> 文件转换为 LAMMPS 的 <code>.data</code> 文件。可以使用 VMD 来完成此操作。<ul>
+<li>在 VMD 中打开 <code>water.xyz</code> 文件。</li>
+<li>打开 Tk Console (<code>Extensions</code> -&gt; <code>Tk Console</code>)。</li>
+<li>输入以下命令：<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tcl">topo readlammpsdata water.data<br>topo writelammpsdata water.data<br></code></pre></td></tr></table></figure>
+这将创建一个名为 <code>water.data</code> 的 LAMMPS 数据文件。</li>
+</ul>
+</li>
+</ol>
+<h5 id="1-3-合并结构"><a href="#1-3-合并结构" class="headerlink" title="1.3. 合并结构"></a><strong>1.3. 合并结构</strong></h5><p>现在有了 <code>data.sio2</code> 和 <code>water.data</code> 两个文件，需要将它们合并成一个单一的 LAMMPS 数据文件。这可以通过手动编辑或使用脚本来完成。关键点在于：</p>
+<ul>
+<li>将两个文件的原子坐标部分合并。</li>
+<li>正确更新原子总数、原子类型数、键数等头部信息。</li>
+<li>确保原子类型编号不冲突（例如，二氧化硅中的 Si 原子类型为 1，O 原子类型为 2，那么水中的 O 和 H 原子类型应从 3 和 4 开始）。<br>这个过程可能有些繁琐。一个更简单的方法是使用 LAMMPS 本身来组合它们，但为了本教程的简洁性，假设你已经手动或通过自定义脚本成功创建了一个名为 <code>system.data</code> 的最终数据文件。</li>
+</ul>
+<h4 id="2-LAMMPS-输入脚本"><a href="#2-LAMMPS-输入脚本" class="headerlink" title="2. LAMMPS 输入脚本"></a><strong>2. LAMMPS 输入脚本</strong></h4><p>现在，可以编写 LAMMPS 输入脚本了。脚本分成几个部分。</p>
+<h5 id="2-1-初始化"><a href="#2-1-初始化" class="headerlink" title="2.1. 初始化"></a><strong>2.1. 初始化</strong></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 初始化 ---<br>units           real<br>atom_style      full<br>boundary        p p p<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>units real</code>: 使用 <code>real</code> 单位制（Å, kcal&#x2F;mol, fs 等）。</li>
+<li><code>atom_style full</code>: 使用 <code>full</code> 原子样式，因为它支持分子、键、角和电荷。</li>
+<li><code>boundary p p p</code>: 在所有三个方向上使用周期性边界条件。</li>
+</ul>
+<h5 id="2-2-读取数据文件"><a href="#2-2-读取数据文件" class="headerlink" title="2.2. 读取数据文件"></a><strong>2.2. 读取数据文件</strong></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 读取数据 ---<br>read_data       system.data<br></code></pre></td></tr></table></figure>
+<p>这会读取之前准备的 <code>system.data</code> 文件。</p>
+<h5 id="2-3-力场设置"><a href="#2-3-力场设置" class="headerlink" title="2.3. 力场设置"></a><strong>2.3. 力场设置</strong></h5><p>使用 CLAYFF 力场来描述二氧化硅，使用 SPC&#x2F;E 力场来描述水。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 力场设置 ---<br>pair_style      lj/cut/coul/long 12.0<br>pair_modify     mix arithmetic<br>kspace_style    pppm 1e-4<br># 二氧化硅 (CLAYFF)<br>pair_coeff      1 1 0.0      0.0      # Si-Si<br>pair_coeff      1 2 103033.252 3.302   # Si-O (二氧化硅)<br>pair_coeff      2 2 230400.0  3.166    # O-O (二氧化硅)<br># 水 (SPC/E)<br>pair_coeff      3 3 0.1553   3.166    # O-O (水)<br>pair_coeff      4 4 0.0      0.0      # H-H<br>pair_coeff      3 4 0.0      0.0      # O-H (水)<br># 二氧化硅-水相互作用<br>pair_coeff      1 3 103033.252 3.302   # Si-O (水)<br>pair_coeff      1 4 0.0      0.0      # Si-H<br>pair_coeff      2 3 230400.0  3.166    # O (二氧化硅)-O (水)<br>pair_coeff      2 4 0.0      0.0      # O (二氧化硅)-H<br># 键和角参数 (水)<br>bond_style      harmonic<br>angle_style     harmonic<br>bond_coeff      1 1000.0 1.0<br>angle_coeff     1 100.0 109.47<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>pair_style lj/cut/coul/long 12.0</code>: 使用 Lennard-Jones (LJ) 和长程库仑相互作用，截断半径为 12.0 Å。</li>
+<li><code>pair_modify mix arithmetic</code>: 使用算术平均规则来混合不同原子类型的 LJ 参数。</li>
+<li><code>kspace_style pppm 1e-4</code>: 使用 PPPM 算法计算长程库仑相互作用，精度为 1e-4。</li>
+<li><code>pair_coeff</code>: 为不同原子类型对定义 LJ 参数 (ε, σ)。<strong>注意</strong>: 你需要根据你的 <code>system.data</code> 文件中的原子类型编号来调整这些系数。这里假设 <code>1=Si</code>, <code>2=O_sio2</code>, <code>3=O_water</code>, <code>4=H_water</code>。</li>
+<li><code>bond_style</code> 和 <code>angle_style</code>: 定义键和角的势能函数为谐振子势。</li>
+<li><code>bond_coeff</code> 和 <code>angle_coeff</code>: 为水分子定义键和角的力常数与平衡值。</li>
+</ul>
+<h5 id="2-4-能量最小化"><a href="#2-4-能量最小化" class="headerlink" title="2.4. 能量最小化"></a><strong>2.4. 能量最小化</strong></h5><p>在开始动力学模拟之前，需要最小化体系的能量，以消除任何不合理的原子重叠。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 能量最小化 ---<br>min_style       cg<br>minimize        1.0e-4 1.0e-6 1000 10000<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>min_style cg</code>: 使用共轭梯度算法进行最小化。</li>
+<li><code>minimize</code>: 设置最小化收敛标准。</li>
+</ul>
+<h5 id="2-5-平衡模拟"><a href="#2-5-平衡模拟" class="headerlink" title="2.5. 平衡模拟"></a><strong>2.5. 平衡模拟</strong></h5><p>现在，将对体系进行平衡，使其达到目标温度和压力。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 平衡 ---<br>reset_timestep  0<br>timestep        1.0<br># 速度初始化<br>velocity        all create 300.0 12345<br># NVT 平衡<br>fix             1 all nvt temp 300.0 300.0 100.0<br>thermo          100<br>thermo_style    custom step temp pe ke etotal press vol<br>run             10000<br>unfix           1<br># NPT 平衡<br>fix             1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0<br>run             20000<br>unfix           1<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>reset_timestep 0</code>: 将时间步重置为 0。</li>
+<li><code>timestep 1.0</code>: 设置时间步长为 1 fs。</li>
+<li><code>velocity all create 300.0 12345</code>: 根据随机数种子 12345，为所有原子赋予 300 K 的初始速度。</li>
+<li><code>fix 1 all nvt ...</code>: 在 NVT（正则）系综下运行模拟，使用 Nosé-Hoover 恒温器将温度维持在 300 K。</li>
+<li><code>thermo 100</code>: 每 100 步输出一次热力学信息。</li>
+<li><code>thermo_style</code>: 自定义热力学输出的内容。</li>
+<li><code>run 10000</code>: 运行 10000 步（10 ps）的 NVT 模拟。</li>
+<li><code>fix 1 all npt ...</code>: 在 NPT（等温等压）系综下运行模拟，使用 Nosé-Hoover 恒温器和恒压器，将温度维持在 300 K，压力维持在 1 atm。</li>
+<li><code>run 20000</code>: 运行 20000 步（20 ps）的 NPT 模拟。</li>
+</ul>
+<h5 id="2-6-生产模拟"><a href="#2-6-生产模拟" class="headerlink" title="2.6. 生产模拟"></a><strong>2.6. 生产模拟</strong></h5><p>体系平衡后，运行一个更长的生产模拟来收集数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs lammps"># --- 生产模拟 ---<br>reset_timestep  0<br>fix             1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0<br># 输出轨迹<br>dump            1 all custom 1000 dump.lammpstrj id type x y z<br># 运行模拟<br>run             100000<br># 清理<br>undump          1<br>unfix           1<br>print           &quot;Simulation finished&quot;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>dump 1 all custom 1000 dump.lammpstrj ...</code>: 每 1000 步将所有原子的坐标、类型和 ID 输出到一个名为 <code>dump.lammpstrj</code> 的轨迹文件中。</li>
+<li><code>run 100000</code>: 运行 100000 步（100 ps）的生产模拟。</li>
+<li><code>undump</code> 和 <code>unfix</code>: 在模拟结束时移除 <code>dump</code> 和 <code>fix</code> 命令，这是一个好习惯。</li>
+</ul>
+<h4 id="3-运行模拟"><a href="#3-运行模拟" class="headerlink" title="3. 运行模拟"></a><strong>3. 运行模拟</strong></h4><p>将上述所有部分保存到一个名为 <code>in.adsorption</code> 的文件中。然后，在终端中运行 LAMMPS：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lmp -<span class="hljs-keyword">in</span> in.adsorption<br></code></pre></td></tr></table></figure>
+<p>模拟完成后，你将得到一个名为 <code>dump.lammpstrj</code> 的轨迹文件和一个名为 <code>log.lammps</code> 的日志文件。</p>
+<h4 id="4-分析结果"><a href="#4-分析结果" class="headerlink" title="4. 分析结果"></a><strong>4. 分析结果</strong></h4><p>现在，可以分析模拟结果了。我们将使用 VMD 和一些自定义脚本来进行分析。</p>
+<h5 id="4-1-可视化"><a href="#4-1-可视化" class="headerlink" title="4.1. 可视化"></a><strong>4.1. 可视化</strong></h5><p>使用 VMD 打开 <code>dump.lammpstrj</code> 文件，可视化水分子在二氧化硅孔隙中的运动和吸附行为。</p>
+<h5 id="4-2-密度分布图"><a href="#4-2-密度分布图" class="headerlink" title="4.2. 密度分布图"></a><strong>4.2. 密度分布图</strong></h5><p>计算水分子沿 z 轴的密度分布，以观察水在孔隙中的富集情况。</p>
+<ol>
+<li>在 VMD 中加载轨迹文件。</li>
+<li>打开 Tk Console。</li>
+<li>运行以下 Tcl 脚本：<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">set</span> sel [atomselect top <span class="hljs-string">&quot;name O and type 3&quot;</span>] # 选择水中的氧原子<br><span class="hljs-keyword">set</span> nf [molinfo top get numframes]<br><span class="hljs-keyword">set</span> outfile [<span class="hljs-keyword">open</span> <span class="hljs-string">&quot;density_z.dat&quot;</span> w]<br><span class="hljs-keyword">puts</span> <span class="hljs-variable">$outfile</span> <span class="hljs-string">&quot;# z density&quot;</span><br><span class="hljs-keyword">for</span> &#123;<span class="hljs-keyword">set</span> i <span class="hljs-number">0</span>&#125; &#123;<span class="hljs-variable">$i</span> &lt; <span class="hljs-variable">$nf</span>&#125; &#123;<span class="hljs-keyword">incr</span> i&#125; &#123;<br>    <span class="hljs-variable">$sel</span> frame <span class="hljs-variable">$i</span><br>    <span class="hljs-keyword">set</span> z [<span class="hljs-variable">$sel</span> get z]<br>    <span class="hljs-keyword">set</span> z_bins [histogram <span class="hljs-variable">$z</span> -bins <span class="hljs-number">100</span> -min <span class="hljs-number">0</span> -max <span class="hljs-number">50</span>]<br>    <span class="hljs-keyword">puts</span> <span class="hljs-variable">$outfile</span> <span class="hljs-string">&quot;$z_bins&quot;</span><br>&#125;<br><span class="hljs-keyword">close</span> <span class="hljs-variable">$outfile</span><br></code></pre></td></tr></table></figure>
+这将生成一个名为 <code>density_z.dat</code> 的文件，其中包含沿 z 轴的密度数据。可以使用 Gnuplot 或 Python&#x2F;Matplotlib 对其进行绘图。</li>
+</ol>
+<h5 id="4-3-径向分布函数-RDF"><a href="#4-3-径向分布函数-RDF" class="headerlink" title="4.3. 径向分布函数 (RDF)"></a><strong>4.3. 径向分布函数 (RDF)</strong></h5><p>RDF 可以告诉我们水分子在二氧化硅表面的结构排布信息。</p>
+<ol>
+<li>在 VMD Tk Console 中运行：<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">set</span> sel1 [atomselect top <span class="hljs-string">&quot;name O and type 2&quot;</span>] # 选择二氧化硅中的氧原子<br><span class="hljs-keyword">set</span> sel2 [atomselect top <span class="hljs-string">&quot;name O and type 3&quot;</span>] # 选择水中的氧原子<br><span class="hljs-keyword">set</span> r [measure rdf <span class="hljs-variable">$sel1</span> <span class="hljs-variable">$sel2</span> -rmax <span class="hljs-number">10.0</span> -bins <span class="hljs-number">100</span> -useframe all -<span class="hljs-keyword">update</span> <span class="hljs-number">100</span>]<br><span class="hljs-keyword">set</span> outfile [<span class="hljs-keyword">open</span> <span class="hljs-string">&quot;rdf_oo.dat&quot;</span> w]<br><span class="hljs-keyword">foreach</span> &#123;r g_r&#125; <span class="hljs-variable">$r</span> &#123;<br>    <span class="hljs-keyword">puts</span> <span class="hljs-variable">$outfile</span> <span class="hljs-string">&quot;$r $g_r&quot;</span><br>&#125;<br><span class="hljs-keyword">close</span> <span class="hljs-variable">$outfile</span><br></code></pre></td></tr></table></figure>
+这将计算并输出二氧化硅氧原子与水氧原子之间的 RDF 到 <code>rdf_oo.dat</code> 文件中。</li>
+</ol>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h4><p>本教程向你展示了如何模拟水在多孔二氧化硅中的吸附。涵盖了从准备结构、编写 LAMMPS 输入脚本到分析模拟结果的整个过程。可以通过修改体系（例如，改变孔隙大小、使用不同的表面或不同的液体）来扩展这个教程，以研究其他吸附体系。</p>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B5%81%E4%BD%93%E7%AE%97%E6%B3%95/" class="category-chain-item">流体算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/lammps%E6%A8%A1%E6%8B%9F/" class="print-no-link">#lammps模拟</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【分子模拟】使用lammps模拟水在多孔二氧化硅中的吸附</div>
+      <div>http://example.com/2025/08/15/使用lammps模拟水在多孔二氧化硅中的吸附/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>DABAI MENG</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/29/%E6%89%8B%E6%90%93ChatGPT-%E9%87%87%E7%94%A8Transformer%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="【AI算法】手搓ChatGPT-采用Transformer架构构建大语言模型">
+                        <span class="hidden-mobile">【AI算法】手搓ChatGPT-采用Transformer架构构建大语言模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br>2023-2025 © 大白锰  <br>www.dabaimeng.work 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
